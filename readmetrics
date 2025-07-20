@@ -1,5 +1,5 @@
 ##esse é um pedaço do código que fiz para tentar alterar a leitura de 4 colunas que apenas alguns valores estão voltando com a virgula em local errado
-# apesar de descrever a coluna ele não con segue fazzer essa leitura. 
+# apesar de descrever a coluna ele não consegue fazer essa leitura. 
 ## acima eu pedi para salvar apenas 2 numeros apos a virgula e ele conseguiu 
 
 try:
@@ -36,11 +36,11 @@ try:
                             else:
                                 break
                         for data in extra_data:
-                            new_entry = {"PatientID": "UNKNOWN", "RTPlan": "UNKNOWN", "Feixe": 0}
+                            new_entry = {"RTPlan": "UNKNOWN", "Feixe": 0}
                             new_entry.update(data)
                             for key in headers[3:]:  # Preencher outros campos com 0 ou nulo
                                 if key not in data:
-                                    new_entry[key] = 0.0 if key not in ["PatientID", "RTPlan", "Feixe", "Sítio"] else "UNKNOWN"
+                                    new_entry[key] = 0.0 if key not in ["RTPlan", "Feixe", "Sítio"] else "UNKNOWN"
                             writer.writerow({k: new_entry.get(k, 0.0) for k in headers})
                             with open(output_path, 'w', newline='', encoding='utf-8') as csvfile_rewrite:
                                 writer = csv.DictWriter(csvfile_rewrite, fieldnames=headers, extrasaction='ignore')
@@ -57,3 +57,7 @@ try:
         logger.info("Resultados salvos com sucesso")
     except Exception as e:
         logger.error("Falha ao salvar CSV: %s", e)
+
+if __name__ == "__main__":
+    main()
+
